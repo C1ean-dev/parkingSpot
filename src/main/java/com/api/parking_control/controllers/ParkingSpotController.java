@@ -51,7 +51,6 @@ public class ParkingSpotController {
     public ResponseEntity<List<ParkingSpotModel>> getAllParkingSpots() {
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll());
     }
-    //@GetMapping("/{id}")
     @GetMapping("/get/{id}")
     public ResponseEntity<Object> getOneParkingSpot(@PathVariable(value = "id") UUID id){
 
@@ -97,5 +96,4 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found");
         }
     }
-
 }
