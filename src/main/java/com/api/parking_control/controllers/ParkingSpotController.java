@@ -5,13 +5,13 @@ import com.api.parking_control.models.ParkingSpotModel;
 import com.api.parking_control.service.ParkingSpotService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,10 +46,12 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
         }
     }
-
     @GetMapping
-    public ResponseEntity<List<ParkingSpotModel>> getAllParkingSpots() {
-        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll());
+    public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        PageRequest pageable = PageRequest.of(page, pageSize);
+        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
     }
     @GetMapping("/get/{id}")
     public ResponseEntity<Object> getOneParkingSpot(@PathVariable(value = "id") UUID id){

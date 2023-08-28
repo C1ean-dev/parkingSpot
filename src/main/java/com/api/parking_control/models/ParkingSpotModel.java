@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
-
 @Entity
 @Data
 @Table(name = "TB_PARKING_SPOT")
