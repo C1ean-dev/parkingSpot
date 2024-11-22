@@ -2,6 +2,7 @@ package com.api.parking_control.service;
 
 import com.api.parking_control.models.ParkingSpotModel;
 import com.api.parking_control.repositories.ParkingSpotRepository;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,5 @@ public class ParkingSpotService {
     public void delete(ParkingSpotModel parkingSpotModel){
         repository.delete(parkingSpotModel);
     }
+    
 }

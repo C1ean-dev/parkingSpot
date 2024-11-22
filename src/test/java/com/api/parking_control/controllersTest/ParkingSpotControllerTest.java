@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,30 +34,43 @@ public class ParkingSpotControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
+   @Test
     void saveParkingSpot_ValidParkingSpot_ReturnsCreatedResponse() {
         // Arrange
         ParkingSpotDto parkingSpotDto = new ParkingSpotDto();
-        // Set up the parkingSpotDto
-        Mockito.when(parkingSpotService.existsByLicensePlateCar(any())).thenReturn(false);
-        Mockito.when(parkingSpotService.existsByParkingSpotNumber(any())).thenReturn(false);
-        Mockito.when(parkingSpotService.existsByApartmentAndBlock(any(), any())).thenReturn(false);
-        Mockito.when(parkingSpotService.save(any())).thenReturn(new ParkingSpotModel());
+        parkingSpotDto.setParkingSpotNumber("A123");
+        parkingSpotDto.setLicensePlateCar("XYZ1234");
+        parkingSpotDto.setBrandCar("Toyota");
+        parkingSpotDto.setModelCar("Corolla");
+        parkingSpotDto.setColorCar("Blue");
+        parkingSpotDto.setRegistrationDate(LocalDateTime.now());
+        parkingSpotDto.setResponsibleName("John Doe");
+        parkingSpotDto.setApartment("101");
+        parkingSpotDto.setBlock("A");
+
+        ParkingSpotModel expectedModel = new ParkingSpotModel();
+        // Configure o expectedModel como necessário
+
+        Mockito.when(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())).thenReturn(false);
+        Mockito.when(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())).thenReturn(false);
+        Mockito.when(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())).thenReturn(false);
+        Mockito.when(parkingSpotService.save(Mockito.any(ParkingSpotModel.class))).thenReturn(expectedModel);
 
         // Act
         ResponseEntity<Object> response = parkingSpotController.saveParkingSpot(parkingSpotDto);
 
         // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        verify(parkingSpotService, times(1)).save(any());
+        verify(parkingSpotService, times(1)).save(Mockito.any(ParkingSpotModel.class));
     }
+
 
     @Test
     void saveParkingSpot_ConflictingLicensePlateCar_ReturnsConflictResponse() {
         // Arrange
         ParkingSpotDto parkingSpotDto = new ParkingSpotDto();
+        
         // Set up the parkingSpotDto
-
         when(parkingSpotService.existsByLicensePlateCar(any())).thenReturn(true);
 
         // Act

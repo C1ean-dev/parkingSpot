@@ -1,0 +1,20 @@
+services:
+
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: parking_control_db
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      POSTGRES_DB: parking_control_db
+      POSTGRES_USER: clean
+      POSTGRES_PASSWORD: database
+    ports:
+      - "5432:5432"
+    #volumes:
+    #  - postgres_data:/var/lib/postgresql/data
+    #  - ./init-scripts:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data:

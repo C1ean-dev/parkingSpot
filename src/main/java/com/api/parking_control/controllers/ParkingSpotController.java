@@ -28,7 +28,7 @@ public class ParkingSpotController {
         this.parkingSpotService = parkingSpotService;
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) {
         //refactor this in interface for isolation in custom validator
         if (parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())) {
@@ -46,19 +46,22 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
         }
     }
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int pageSize) {
         PageRequest pageable = PageRequest.of(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
     }
+    
     @GetMapping("/get/{id}")
     public ResponseEntity<Object> getOneParkingSpot(@PathVariable(value = "id") UUID id){
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
-        return parkingSpotModelOptional.
-                <ResponseEntity<Object>>map(parkingSpotModel -> ResponseEntity.status(HttpStatus.OK).body(parkingSpotModel))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found."));
+        if (parkingSpotModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(parkingSpotModelOptional);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
+        }
     }
 
     @DeleteMapping("/delete/{id}")

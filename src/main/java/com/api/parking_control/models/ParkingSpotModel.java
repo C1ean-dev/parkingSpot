@@ -36,4 +36,20 @@ public class ParkingSpotModel implements Serializable {
     private String apartment;
     @Column(nullable = false, length = 30)
     private String block;
+
+    public String toString() {
+        return "ParkingSpotModel{" +
+                "id=" + id +
+                ", parkingSpotNumber='" + parkingSpotNumber + '\'' +
+                ", licensePlateCar='" + licensePlateCar + '\'' +
+                ", brandCar='" + brandCar + '\'' +
+                ", modelCar='" + modelCar + '\'' +
+                ", colorCar='" + colorCar + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", responsibleName='" + responsibleName + '\'' +
+                ", apartment='" + apartment + '\'' +
+                ", block='" + block + '\'' +
+                '}';
+    }
+
 }
