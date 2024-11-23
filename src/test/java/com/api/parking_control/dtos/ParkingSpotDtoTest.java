@@ -1,6 +1,5 @@
-package com.api.parking_control.dtosTest;
+package com.api.parking_control.dtos;
 
-import com.api.parking_control.dtos.ParkingSpotDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

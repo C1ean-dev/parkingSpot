@@ -1,4 +1,4 @@
-package com.api.parking_control.controllers;
+package com.api.parking_control.controller;
 
 import com.api.parking_control.dtos.ParkingSpotDto;
 import com.api.parking_control.models.ParkingSpotModel;
@@ -38,7 +38,7 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use!");
         }
         if (parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this Apartment/block ");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this Apartment/block.");
         }else{
             ParkingSpotModel parkingSpotModel = new ParkingSpotModel();
             BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
@@ -46,6 +46,7 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
         }
     }
+    
     @GetMapping("/")
     public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(
             @RequestParam(defaultValue = "0") int page,
