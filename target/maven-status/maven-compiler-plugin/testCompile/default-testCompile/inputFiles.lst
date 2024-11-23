@@ -1,6 +1,2 @@
-/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/models/ParkingSpotModelTest.java
-/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/controllersTest/ParkingSpotControllerRefactorTest.java
-/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/controllersTest/ParkingSpotControllerTest.java
-/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/servicesTest/ParkingControlApplicationTest.java
-/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/repositories/ParkingSpotRepositoryTest.java
-/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/dtosTest/ParkingSpotDtoTest.java
+/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/controller/ParkingSpotControllerTest.java
+/home/clean/javaSpringApiRest/src/test/java/com/api/parking_control/dtos/ParkingSpotDtoTest.java

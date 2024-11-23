@@ -2,6 +2,6 @@
 /home/clean/javaSpringApiRest/src/main/java/com/api/parking_control/models/ParkingSpotModel.java
 /home/clean/javaSpringApiRest/src/main/java/com/api/parking_control/ParkingControlApplication.java
 /home/clean/javaSpringApiRest/src/main/java/com/api/parking_control/service/ParkingSpotService.java
+/home/clean/javaSpringApiRest/src/main/java/com/api/parking_control/controller/ParkingSpotController.java
 /home/clean/javaSpringApiRest/src/main/java/com/api/parking_control/dtos/ParkingSpotDto.java
 /home/clean/javaSpringApiRest/src/main/java/com/api/parking_control/ParkingConfigs/ParkingSpotConfig.java
-/home/clean/javaSpringApiRest/src/main/java/com/api/parking_control/controllers/ParkingSpotController.java
