@@ -57,7 +57,6 @@ class ParkingSpotControllerTest {
             .thenReturn(false);
         when(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock()))
             .thenReturn(true);
-
         // Act & Assert
         mockMvc.perform(post("/parking-spot/")
                 .contentType("application/json")
