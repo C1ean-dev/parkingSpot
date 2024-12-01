@@ -1,0 +1,15 @@
+POST http://localhost:8080/parking-spot/   HTTP/1.1
+content-type: application/json
+
+{
+  "parkingSpotNumber": "string",
+  "licensePlateCar": "string",
+  "brandCar": "string",
+  "modelCar": "string",
+  "colorCar": "string",
+  "responsibleName": "string",
+  "apartment": "string",
+  "block": "string"
+}
+###
+GET http://localhost:8080/parking-spot/  HTTP/1.1
