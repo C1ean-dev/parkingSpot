@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    build:
+      context: . 
+      dockerfile: Dockerfile-postgres  # Definindo um arquivo Dockerfile específico para o PostgreSQL
+    container_name: parking_control_db
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      POSTGRES_DB: parking_control_db
+      POSTGRES_USER: clean
+      POSTGRES_PASSWORD: database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d  # Caso você tenha scripts de inicialização para o banco
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Dockerfile que você usou para a aplicação Spring Boot
+    container_name: parking_control_app
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/parking_control_db
+      SPRING_DATASOURCE_USERNAME: clean
+      SPRING_DATASOURCE_PASSWORD: database
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

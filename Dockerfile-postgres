@@ -1,0 +1,13 @@
+# Usando a imagem oficial do PostgreSQL
+FROM postgres:16.3
+
+# Definindo as variáveis de ambiente
+ENV POSTGRES_DB=parking_control_db
+ENV POSTGRES_USER=clean
+ENV POSTGRES_PASSWORD=database
+
+# Expondo a porta padrão do PostgreSQL
+EXPOSE 5432
+
+# Rodando o PostgreSQL
+CMD ["postgres"]
