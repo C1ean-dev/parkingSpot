@@ -1,11 +1,12 @@
 package com.api.parking_control.controller;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.api.parking_control.dtos.ParkingSpotDto;
-import com.api.parking_control.service.ParkingSpotService;
+import com.api.parking.controller.ParkingSpotController;
+import com.api.parking.dtos.ParkingSpotDto;
+import com.api.parking.service.ParkingSpotService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

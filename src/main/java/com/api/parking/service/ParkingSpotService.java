@@ -1,12 +1,13 @@
-package com.api.parking_control.service;
-
-import com.api.parking_control.models.ParkingSpotModel;
-import com.api.parking_control.repositories.ParkingSpotRepository;
+package com.api.parking.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.api.parking.models.ParkingSpotModel;
+import com.api.parking.repositories.ParkingSpotRepository;
+
 import java.util.Optional;
 import java.util.UUID;
 

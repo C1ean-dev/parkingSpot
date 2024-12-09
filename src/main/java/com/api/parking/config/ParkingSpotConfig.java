@@ -1,4 +1,4 @@
-package com.api.parking_control.ParkingConfigs;
+package com.api.parking.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -13,12 +13,11 @@ import java.time.format.DateTimeFormatter;
 public class ParkingSpotConfig {
     @Bean
     @Primary
-    public ObjectMapper DateConfig(){
-        String DATETIME_FORMAT = "'yyyy-MM-dd' 'T' 'HH:mm:ss ' 'Z' ";
-        LocalDateTimeSerializer LOCAL_DATETIME_SERIALIZER = new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATETIME_FORMAT));
+    ObjectMapper dateConfig(){
+        String dateTimeFormat = "'yyyy-MM-dd' 'T' 'HH:mm:ss ' 'Z' ";
+        LocalDateTimeSerializer localDateTimeSerializer = new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(dateTimeFormat));
         JavaTimeModule module = new JavaTimeModule();
-        module.addSerializer(LOCAL_DATETIME_SERIALIZER);
+        module.addSerializer(localDateTimeSerializer);
         return new ObjectMapper().registerModule(module);
-
     }
 }

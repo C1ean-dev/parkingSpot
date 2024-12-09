@@ -7,6 +7,8 @@ import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.api.parking.dtos.ParkingSpotDto;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 

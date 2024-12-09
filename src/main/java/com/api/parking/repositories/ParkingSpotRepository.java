@@ -1,7 +1,8 @@
-package com.api.parking_control.repositories;
-import com.api.parking_control.models.ParkingSpotModel;
+package com.api.parking.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.api.parking.models.ParkingSpotModel;
 
 import java.util.UUID;
 

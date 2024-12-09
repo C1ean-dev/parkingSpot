@@ -1,8 +1,5 @@
-package com.api.parking_control.controller;
+package com.api.parking.controller;
 
-import com.api.parking_control.dtos.ParkingSpotDto;
-import com.api.parking_control.models.ParkingSpotModel;
-import com.api.parking_control.service.ParkingSpotService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -10,6 +7,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.api.parking.dtos.ParkingSpotDto;
+import com.api.parking.models.ParkingSpotModel;
+import com.api.parking.service.ParkingSpotService;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
@@ -56,7 +58,7 @@ public class ParkingSpotController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneParkingSpot(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Object> getOneParkingSpot(@PathVariable UUID id){
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
         if (parkingSpotModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(parkingSpotModelOptional);
@@ -66,7 +68,7 @@ public class ParkingSpotController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteOneParkingSpot(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> deleteOneParkingSpot(@PathVariable UUID id) {
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
         if (parkingSpotModelOptional.isPresent()) {
             parkingSpotService.delete(parkingSpotModelOptional.get());
@@ -77,7 +79,7 @@ public class ParkingSpotController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") UUID id,
+    public ResponseEntity<Object> updateParkingSpot(@PathVariable UUID id,
                                                     @RequestBody @Valid ParkingSpotDto parkingSpotDto){
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
         if (parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())) {
