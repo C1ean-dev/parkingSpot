@@ -9,9 +9,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "ParkingSpot")
 @Data
-@Table(name = "TB_PARKING_SPOT")
+@Table(name = "ParkingSpot")
 public class ParkingSpotModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
