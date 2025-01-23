@@ -29,8 +29,8 @@ public class AuthenticationUserController {
     private JwtService jwtService;
     @Autowired
     private AuthenticationService authenticationService;
-    @Autowired
-    private Logger logger = LoggerFactory.getLogger(AuthenticationUserController.class);
+    
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationUserController.class);
 
     public AuthenticationUserController(JwtService jwtService, AuthenticationService authenticationService) {
         this.jwtService = jwtService;
