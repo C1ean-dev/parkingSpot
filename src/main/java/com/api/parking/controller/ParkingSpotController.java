@@ -2,6 +2,7 @@ package com.api.parking.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -18,20 +19,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-//permission all origins access this class
-@CrossOrigin(origins = "*",maxAge = 3600)
 @RequestMapping("/parking-spot")
 public class ParkingSpotController {
 
-    //injection pointer
-    public final ParkingSpotService parkingSpotService;
+    @Autowired
+    public ParkingSpotService parkingSpotService;
 
     public ParkingSpotController(ParkingSpotService parkingSpotService) {
         this.parkingSpotService = parkingSpotService;
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) {
+    public ResponseEntity<Object> saveParkingSpot(@RequestBody ParkingSpotDto parkingSpotDto) {
 
         if (parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use!");
