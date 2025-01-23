@@ -1,0 +1,14 @@
+# Use a imagem base do Alpine
+FROM alpine:latest
+
+# Instale o Redis
+RUN apk add --no-cache redis
+
+# Crie um diretório para os dados do Redis
+RUN mkdir /data
+
+# Exponha a porta padrão do Redis
+EXPOSE 6379
+
+# Inicie o Redis
+CMD ["redis-server", "--protected-mode", "no", "--dir", "/data"]

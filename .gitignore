@@ -1,0 +1,9 @@
+target
+.env
+target/
+*.jar
+*.war
+dependency-reduced-pom.xml
+.vscode/
+application.properties
+*.log

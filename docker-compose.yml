@@ -8,28 +8,44 @@ services:
     container_name: parking_control_db
     environment:
       SPRING_PROFILES_ACTIVE: dev
-      POSTGRES_DB: parking_control_db
-      POSTGRES_USER: clean
-      POSTGRES_PASSWORD: database
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PG_USERNAME}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:${PG_PORT}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d  # Caso você tenha scripts de inicialização para o banco
     networks:
       - app-network
 
+  redis:
+    build:
+      context: .
+      dockerfile: 
+        Dockerfile-redis
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    container_name: 
+      parking_control_cache
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-redispassword}
+    command: 
+      redis-server --requirepass ${REDIS_PASSWORD:-redispassword}
+    networks:
+      - app-network
+      
   app:
     build:
       context: .
-      dockerfile: Dockerfile  # Dockerfile que você usou para a aplicação Spring Boot
+      dockerfile: Dockerfile
     container_name: parking_control_app
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/parking_control_db
-      SPRING_DATASOURCE_USERNAME: clean
-      SPRING_DATASOURCE_PASSWORD: database
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${PG_DB}
+      SPRING_DATASOURCE_USERNAME: ${PG_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${PG_PASSWORD}
       SPRING_PROFILES_ACTIVE: dev
     ports:
       - "8080:8080"
