@@ -63,6 +63,5 @@ public class AuthenticationUserController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid username or password"));
         }
-    
     }
 }
