@@ -12,4 +12,34 @@ content-type: application/json
   "block": "string"
 }
 ###
-GET http://localhost:8080/parking-spot/  HTTP/1.1
+POST http://127.0.0.1:8080/user/register   HTTP/1.1
+content-type: application/json
+
+{
+  "username": "12349",
+  "password": "teste"
+}
+###
+POST http://127.0.0.1:8080/user/login   HTTP/1.1
+content-type: application/json
+
+{
+  "login": "teste312312313123",
+  "password": "teste"
+}
+###
+POST http://127.0.0.1:8080/auth/signup   HTTP/1.1
+content-type: application/json
+
+{
+  "username": "teste312312313123",
+  "password": "teste"
+}
+###
+POST http://127.0.0.1:8080/auth/signin   HTTP/1.1
+content-type: application/json
+
+{
+  "username": "cleber1",
+  "password": "teste"
+}

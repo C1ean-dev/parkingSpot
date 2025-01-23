@@ -7,3 +7,6 @@ dependency-reduced-pom.xml
 .vscode/
 application.properties
 *.log
+src/main/resources/application.properties
+target/classes/application.properties
+*.class
