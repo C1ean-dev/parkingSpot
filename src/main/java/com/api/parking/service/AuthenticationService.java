@@ -3,6 +3,7 @@ package com.api.parking.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,5 +56,8 @@ public class AuthenticationService {
 
         return userRepository.findByUsername(input.getUsername())
                 .orElseThrow();
+    }
+    public Boolean ExistsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 }

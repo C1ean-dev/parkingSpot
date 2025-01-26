@@ -39,13 +39,17 @@ public class AuthenticationUserController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
+        if (authenticationService.ExistsByUsername(registerUserDto.getUsername())) {
+            logger.error("Erro no cadastro: Usuário já existe");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", "Usuário já existe"));
+        }
         try{
             UserModel registeredUser = authenticationService.signup(registerUserDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
         }catch (Exception e) {
             e.printStackTrace();
             logger.error("Erro no cadastro: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", "Usuário já existe"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Erro ao cadastrar usuário"));
         }
     }
 

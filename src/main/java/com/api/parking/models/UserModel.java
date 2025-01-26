@@ -57,4 +57,27 @@ public class UserModel implements UserDetails{
                     .map(SimpleGrantedAuthority::new)
                     .toList();
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // or implement your logic here
+    }
+
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // or implement your logic here
+    }
+
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // or implement your logic here
+    }
+
+
+    @Override
+    public boolean isEnabled() {
+        return true; // or implement your logic here
+    }
 }

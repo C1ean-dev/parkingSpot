@@ -32,7 +32,7 @@ POST http://127.0.0.1:8080/auth/signup   HTTP/1.1
 content-type: application/json
 
 {
-  "username": "teste312312313123",
+  "username": "teste3123123131",
   "password": "teste"
 }
 ###
@@ -40,6 +40,6 @@ POST http://127.0.0.1:8080/auth/signin   HTTP/1.1
 content-type: application/json
 
 {
-  "username": "cleber1",
+  "username": "teste31231231312",
   "password": "teste"
 }

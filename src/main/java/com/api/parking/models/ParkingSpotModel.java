@@ -30,6 +30,8 @@ public class ParkingSpotModel implements Serializable {
     private String colorCar;
     @Column(nullable = false)
     private LocalDateTime registrationDate;
+    @Column(nullable = true)
+    private LocalDateTime updateDate;
     @Column(nullable = false, length = 130)
     private String responsibleName;
     @Column(nullable = false, length = 30)

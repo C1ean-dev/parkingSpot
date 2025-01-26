@@ -1,5 +1,8 @@
 package com.api.parking.service;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -37,12 +40,20 @@ public class ParkingSpotService {
         return repository.findAll(pageable);
     }
     @Transactional(readOnly = true)
+    @Cacheable(value = "Spots")
     public Optional<ParkingSpotModel> findById(UUID id){
         return repository.findById(id);
     }
     @Transactional
+    @CacheEvict(value = "Spots", key = "#id")
     public void delete(ParkingSpotModel parkingSpotModel){
         repository.delete(parkingSpotModel);
+    }
+
+    @Transactional
+    @CachePut(value = "Spots", key = "#id")
+    public ParkingSpotModel update(ParkingSpotModel parkingSpotModel){
+        return repository.save(parkingSpotModel);
     }
     
 }

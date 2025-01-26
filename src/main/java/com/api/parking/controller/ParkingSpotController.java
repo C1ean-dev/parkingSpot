@@ -94,8 +94,8 @@ public class ParkingSpotController {
             ParkingSpotModel parkingSpotModel = new ParkingSpotModel();
             BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
             parkingSpotModel.setId(parkingSpotModelOptional.get().getId());
-            parkingSpotModel.setRegistrationDate(parkingSpotModelOptional.get().getRegistrationDate());
-            return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
+            parkingSpotModel.setUpdateDate(parkingSpotModelOptional.get().getUpdateDate());
+            return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.update(parkingSpotModel));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found");
         }
