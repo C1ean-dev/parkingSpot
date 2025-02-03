@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.api.parking.controller.ParkingSpotController;
-import com.api.parking.dtos.ParkingSpotDto;
+import com.api.parking.models.ParkingSpotModel;
 import com.api.parking.service.ParkingSpotService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,26 +42,21 @@ class ParkingSpotControllerTest {
     @Test
     void testSaveParkingSpot_whenApartmentAndBlockAlreadyExists() throws Exception {
         // Arrange
-        ParkingSpotDto parkingSpotDto = new ParkingSpotDto();
-        parkingSpotDto.setParkingSpotNumber("123");
-        parkingSpotDto.setLicensePlateCar("ABC1234");
-        parkingSpotDto.setBrandCar("Toyota");
-        parkingSpotDto.setModelCar("Corolla");
-        parkingSpotDto.setColorCar("Red");
-        parkingSpotDto.setResponsibleName("John Doe");
-        parkingSpotDto.setApartment("101");
-        parkingSpotDto.setBlock("A");
+        ParkingSpotModel parkingSpotModel = new ParkingSpotModel();
+        parkingSpotModel.setParkingSpotNumber("123");
+        parkingSpotModel.setLicensePlateCar("ABC1234");
+        parkingSpotModel.setBrandCar("Toyota");
+        parkingSpotModel.setModelCar("Corolla");
+        parkingSpotModel.setColorCar("Red");
+        parkingSpotModel.setResponsibleName("John Doe");
+        parkingSpotModel.setApartment("101");
+        parkingSpotModel.setBlock("A");
 
-        when(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar()))
-            .thenReturn(false);
-        when(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber()))
-            .thenReturn(false);
-        when(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock()))
-            .thenReturn(true);
+        when(parkingSpotService.invalidateParkingSpot(parkingSpotModel)).thenReturn(false);
         // Act & Assert
         mockMvc.perform(post("/parking-spot/")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(parkingSpotDto)))
+                .content(objectMapper.writeValueAsString(parkingSpotModel)))
                 .andExpect(status().is(HttpStatus.CONFLICT.value()))
                 .andExpect(content().string("Conflict: Parking Spot already registered for this Apartment/block."));
     }
