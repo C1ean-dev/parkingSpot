@@ -2,7 +2,10 @@ package com.api.parking.models;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,8 +13,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity(name = "ParkingSpot")
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Table(name = "ParkingSpot")
+@ToString(exclude = "id")
 public class ParkingSpotModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -38,20 +44,5 @@ public class ParkingSpotModel implements Serializable {
     private String apartment;
     @Column(nullable = false, length = 30)
     private String block;
-
-    public String toString() {
-        return "ParkingSpotModel{" +
-                "id=" + id +
-                ", parkingSpotNumber='" + parkingSpotNumber + '\'' +
-                ", licensePlateCar='" + licensePlateCar + '\'' +
-                ", brandCar='" + brandCar + '\'' +
-                ", modelCar='" + modelCar + '\'' +
-                ", colorCar='" + colorCar + '\'' +
-                ", registrationDate=" + registrationDate +
-                ", responsibleName='" + responsibleName + '\'' +
-                ", apartment='" + apartment + '\'' +
-                ", block='" + block + '\'' +
-                '}';
-    }
 
 }

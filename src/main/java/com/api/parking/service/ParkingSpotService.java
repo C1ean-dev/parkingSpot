@@ -17,42 +17,51 @@ import java.util.UUID;
 @Service
 public class ParkingSpotService {
 
-    final
-    ParkingSpotRepository repository;
+    private final ParkingSpotRepository repository;
+
     public ParkingSpotService(ParkingSpotRepository repository) {
         this.repository = repository;
     }
-    public boolean existsByLicensePlateCar(String licensePlateCar){
-        return repository.existsByLicensePlateCar(licensePlateCar);
+    public boolean invalidateParkingSpot(ParkingSpotModel parkingSpotModel) {
+        return repository.existsByLicensePlateCar(parkingSpotModel.getLicensePlateCar()) ||
+                repository.existsByParkingSpotNumber(parkingSpotModel.getParkingSpotNumber()) ||
+                repository.existsByApartmentAndBlock(parkingSpotModel.getApartment(), parkingSpotModel.getBlock());
     }
-    public boolean existsByParkingSpotNumber(String parkingSpotNumber){
-        return repository.existsByParkingSpotNumber(parkingSpotNumber);
-    }
-    public boolean existsByApartmentAndBlock(String apartment, String block){
-        return repository.existsByApartmentAndBlock(apartment, block);
-    }
+
     @Transactional
     public ParkingSpotModel save(ParkingSpotModel parkingSpotModel) {
+        if (invalidateParkingSpot(parkingSpotModel)) {
+            throw new IllegalArgumentException("Parking spot already in use");
+        }
         return repository.save(parkingSpotModel);
     }
+    
     @Transactional(readOnly = true)
     public Page<ParkingSpotModel> findAll(PageRequest pageable) {
         return repository.findAll(pageable);
     }
     @Transactional(readOnly = true)
+    
     @Cacheable(value = "Spots")
     public Optional<ParkingSpotModel> findById(UUID id){
         return repository.findById(id);
     }
+    
     @Transactional
     @CacheEvict(value = "Spots", key = "#id")
-    public void delete(ParkingSpotModel parkingSpotModel){
-        repository.delete(parkingSpotModel);
+    public void delete(UUID id){
+        repository.deleteById(id);
     }
 
     @Transactional
     @CachePut(value = "Spots", key = "#id")
     public ParkingSpotModel update(ParkingSpotModel parkingSpotModel){
+        if (invalidateParkingSpot(parkingSpotModel)) {
+            throw new IllegalArgumentException("Parking spot already in use");
+        }
+        if (!repository.existsById(parkingSpotModel.getId())) {
+            throw new IllegalArgumentException("Parking spot not found");
+        }
         return repository.save(parkingSpotModel);
     }
     
